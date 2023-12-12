@@ -23,9 +23,19 @@ jobs:
     - name: Login Azure
       uses: azure/login@v1
       with:
-        creds: ${{secrets.AZURE_CREDENTIALS}}
-        enable-AzPSSession: true 
-        
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    # just test
+    - name: Azure CLI script
+      uses: azure/CLI@v1
+      with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+
+    # actual extraction
     - name: Run Azure PowerShell inline script
       uses: azure/powershell@v1
       with:

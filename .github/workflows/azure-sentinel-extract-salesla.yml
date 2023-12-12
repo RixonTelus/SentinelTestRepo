@@ -1,0 +1,39 @@
+name: Extract from salesla
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  extract-rules:
+    runs-on: ubuntu-latest
+    env:
+        subscriptionId: 26613501-ed23-4f10-8aed-bd633914579d
+        resourceGroupName: 'sales-rg'
+        workspaceName: 'salesla'
+        workspaceId: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
+        ruleExportPath: '.\Newexport.json'
+        #cloudEnv: 'AzureCloud'
+
+  steps:
+
+    - name: Check Out
+      uses: actions/checkout@v3
+        
+    - name: Login Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true 
+        
+    - name: Run Azure PowerShell inline script
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          $rules = Get-AzSentinelAlertRule -WorkspaceName $workspaceName
+
+          $rules | ConvertTo-Json | Out-File -FilePath $ruleExportPath
+
+          Write-Host "Total rules extracted: $($rules.Count)"
+        azPSVersion: "latest"

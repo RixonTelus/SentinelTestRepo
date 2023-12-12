@@ -16,8 +16,7 @@ jobs:
         ruleExportPath: '.\Newexport.json'
         #cloudEnv: 'AzureCloud'
 
-  steps:
-
+    steps:
     - name: Check Out
       uses: actions/checkout@v3
         

@@ -1,5 +1,6 @@
 # Variables
 
+Write-Host "test"
 
 # Set the subscription context
 Set-AzContext -SubscriptionId $subscriptionId

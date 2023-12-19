@@ -8,12 +8,6 @@ on:
 jobs:
   extract-rules:
     runs-on: ubuntu-latest
-    env:
-        subscriptionId: 26613501-ed23-4f10-8aed-bd633914579d
-        resourceGroupName: 'sales-rg'
-        workspaceName: 'salesla'
-        workspaceId: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
-        ruleExportPath: '.\Newexport.json'
         #cloudEnv: 'AzureCloud'
 
     steps:
@@ -45,6 +39,12 @@ jobs:
     # actual extraction
     - name: Run Azure PowerShell inline script
       uses: azure/powershell@v1
+      env:
+        subscriptionId: 26613501-ed23-4f10-8aed-bd633914579d
+        resourceGroupName: 'sales-rg'
+        workspaceName: 'salesla'
+        workspaceId: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
+        ruleExportPath: '.\Newexport.json'
       with:
         inlineScript: |
           Write-Host $workspaceName

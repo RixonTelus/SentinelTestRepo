@@ -1,5 +1,12 @@
 name: Extract from salesla
 
+env:
+  subscriptionId: 26613501-ed23-4f10-8aed-bd633914579d
+  resourceGroupName: 'sales-rg'
+  workspaceName: 'salesla'
+  workspaceId: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
+  ruleExportPath: '.\Newexport.json'
+        
 on:
   #schedule:
   #  - cron: '0 0 * * *' # Runs every day at midnight
@@ -39,17 +46,12 @@ jobs:
     # actual extraction
     - name: Run Azure PowerShell inline script
       uses: azure/powershell@v1
-      env:
-        subscriptionId: 26613501-ed23-4f10-8aed-bd633914579d
-        resourceGroupName: 'sales-rg'
-        workspaceName: 'salesla'
-        workspaceId: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
-        ruleExportPath: '.\Newexport.json'
+
       with:
         inlineScript: |
           Write-Host $workspaceName
           
-          $rules = Get-AzSentinelAlertRule -WorkspaceName ${{ env.workspaceName }} -ResourceGroupName ${{ env.resourceGroupName }}
+          $rules = Get-AzSentinelAlertRule -WorkspaceName ${{ env.workspaceName }} -ResourceGroupName ${{ env.resourceGroupName }} -SubscriptionId ${{ env.subscriptionId }}
 
           $rules | ConvertTo-Json | Out-File -FilePath ${{ env.ruleExportPath }}
 

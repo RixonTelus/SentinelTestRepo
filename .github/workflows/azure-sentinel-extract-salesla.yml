@@ -47,6 +47,8 @@ jobs:
       uses: azure/powershell@v1
       with:
         inlineScript: |
+          Write-Host $workspaceName
+          
           $rules = Get-AzSentinelAlertRule -WorkspaceName $workspaceName
 
           $rules | ConvertTo-Json | Out-File -FilePath $ruleExportPath

@@ -49,7 +49,7 @@ jobs:
         inlineScript: |
           Write-Host $workspaceName
           
-          $rules = Get-AzSentinelAlertRule -WorkspaceName $workspaceName
+          $rules = Get-AzSentinelAlertRule -WorkspaceName ${{ env.workspaceName }}
 
           $rules | ConvertTo-Json | Out-File -FilePath $ruleExportPath
 

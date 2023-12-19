@@ -44,19 +44,17 @@ jobs:
             az account show
 
     # actual extraction
-    - name: Run Azure PowerShell inline script
-      uses: azure/powershell@v1
-
-      with:
-        inlineScript: |
-          Write-Host $workspaceName
-          
-          $rules = Get-AzSentinelAlertRule -WorkspaceName ${{ env.workspaceName }} -ResourceGroupName ${{ env.resourceGroupName }} -SubscriptionId ${{ env.subscriptionId }}
-
-          $rules | ConvertTo-Json | Out-File -FilePath ${{ env.ruleExportPath }}
-
-          Write-Host "Total rules extracted: $($rules.Count)"
-        azPSVersion: "latest"
+    - name: Run PS script
+      run: .github\workflows\scripts\extract-sentinel-rules.ps1
+      
+      #uses: azure/powershell@v1
+      #with:
+      #  inlineScript: |
+      #    Write-Host $workspaceName
+      #    $rules = Get-AzSentinelAlertRule -WorkspaceName ${{ env.workspaceName }} -ResourceGroupName ${{ env.resourceGroupName }} -SubscriptionId ${{ env.subscriptionId }}
+      #    $rules | ConvertTo-Json | Out-File -FilePath ${{ env.ruleExportPath }}
+      #    Write-Host "Total rules extracted: $($rules.Count)"
+      #  azPSVersion: "latest"
         
     - name: Commit and Push Changes
       run: |

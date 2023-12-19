@@ -53,7 +53,7 @@ jobs:
     # actual extraction
     - name: Run PS script
       shell: pwsh
-      run:
+      run: |
         ${{ github.workspace }}//.github/workflows/scripts/extract-sentinel-rules.ps1
       
       #uses: azure/powershell@v1

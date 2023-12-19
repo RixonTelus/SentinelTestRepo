@@ -49,9 +49,9 @@ jobs:
         inlineScript: |
           Write-Host $workspaceName
           
-          $rules = Get-AzSentinelAlertRule -WorkspaceName ${{ env.workspaceName }}
+          $rules = Get-AzSentinelAlertRule -WorkspaceName ${{ env.workspaceName }} -ResourceGroupName ${{ env.resourceGroupNAme }}
 
-          $rules | ConvertTo-Json | Out-File -FilePath $ruleExportPath
+          $rules | ConvertTo-Json | Out-File -FilePath ${{ env.ruleExportPath }}
 
           Write-Host "Total rules extracted: $($rules.Count)"
         azPSVersion: "latest"

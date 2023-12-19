@@ -3,7 +3,7 @@
 Write-Host "test"
 
 # Set the subscription context
-Set-AzContext -SubscriptionId $subscriptionId
+#Set-AzContext -SubscriptionId $subscriptionId
 
 # Get the list of Azure Sentinel analytic rules
 $rules = Get-AzSentinelAlertRule -ResourceGroupName $resourceGroupName -WorkspaceName $workspaceName

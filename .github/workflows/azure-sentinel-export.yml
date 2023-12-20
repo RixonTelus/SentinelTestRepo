@@ -22,6 +22,7 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS_SALESLA }}
+        enable-AzPSSession: true
 
     - name: Install Az.SecurityInsights Module
       shell: pwsh

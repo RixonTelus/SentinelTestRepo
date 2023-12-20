@@ -6,8 +6,6 @@ on:
 jobs:
   export-rules:
     runs-on: windows-latest
-    env:
-      rootDirectory: '${{ github.workspace }}'
 
     steps:
     - name: Checkout repository
@@ -21,7 +19,7 @@ jobs:
     - name: Run PS script
       shell: pwsh
       run: |
-        & .github/workflows/scripts/extract-sentinel-rules.ps1
+        & ${{ github.workspace }}//.github/workflows/scripts/extract-sentinel-rules.ps1
     
     - name: Commit and Push Changes
       run: |

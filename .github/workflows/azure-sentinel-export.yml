@@ -16,7 +16,7 @@ env:
   WORKSPACE_NAME: 'salesla'
   WORKSPACE_ID: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
   GITHUB_CONTEXT: ${{ toJson(github) }} 
-  WORKFLOW_ACTOR: ${{ toJson(github) }}.actor
+  #WORKFLOW_ACTOR: ${{ toJson(github) }}.actor
 
 jobs:
   export-rules:
@@ -28,7 +28,6 @@ jobs:
       run: |
         echo "$GITHUB_CONTEXT"
         echo $GITHUB_CONTEXT.actor
-        echo $WORKFLOW_ACTOR
 
     - name: Checkout repository
       uses: actions/checkout@v3

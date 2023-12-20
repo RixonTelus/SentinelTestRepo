@@ -15,7 +15,11 @@ jobs:
     #  uses: azure/login@v1
     #  with:
     #    creds: ${{ secrets.AZURE_CREDENTIALS_SALESLA }}
-    
+    - name: Run PS script
+      shell: pwsh
+      run: |
+        & .github/workflows/scripts/test.ps1
+
     - name: Run PS script
       shell: pwsh
       run: |

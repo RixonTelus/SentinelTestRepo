@@ -12,7 +12,7 @@ env:
   RESOURCE_GROUP_NAME: 'sales-rg'
   WORKSPACE_NAME: 'salesla'
   WORKSPACE_ID: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
-  RULE_EXPORT_PATH: '.\Newexport.json'
+  #RULE_EXPORT_PATH: '.\Newexport.json'
 
 jobs:
   export-rules:
@@ -33,13 +33,17 @@ jobs:
       run: |
         Install-Module -Name Az.SecurityInsights -Force -AllowClobber
 
+    - name: Install AzSentinel Module
+      shell: pwsh
+      run: |
+        Install-Module -Name AzSentinel -Force -AllowClobber
+
     - name: Run Export script
       shell: pwsh
       run: |
         $subscriptionId = $env:SUBSCRIPTION_ID
         $resourceGroupName = $env:RESOURCE_GROUP_NAME
         $workspaceName = $env:WORKSPACE_NAME
-        $ruleExportPath = $env:RULE_EXPORT_PATH
         & .github/workflows/scripts/extract-sentinel-rules.ps1
     
     - name: Commit and Push Changes

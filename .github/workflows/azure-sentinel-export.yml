@@ -1,0 +1,27 @@
+name: Export Sentinel analytic rules from tenant
+
+on:
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  export-rules:
+    runs-on: windows-latest
+    env:
+      rootDirectory: '${{ github.workspace }}'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_SALESLA }}
+    
+    - name: Run PS script
+      shell: pwsh
+      run: ./workflows/scripts/extract-sentinel-rules.ps1
+    
+    #- name: Commit and push changes
+    #  shell: pwsh
+    #  run: |

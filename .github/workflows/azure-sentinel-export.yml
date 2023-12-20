@@ -3,6 +3,11 @@ name: Export Sentinel analytic rules from tenant
 on:
   workflow_dispatch: # Allows manual trigger
 
+defaults:
+  run:
+    shell: pwsh
+    working-directory: ./scripts
+      
 jobs:
   export-rules:
     runs-on: windows-latest
@@ -20,7 +25,7 @@ jobs:
     
     - name: Run PS script
       shell: pwsh
-      run: $rootDirectory\workflows\scripts\extract-sentinel-rules.ps1
+      run: ./extract-sentinel-rules.ps1
     
     #- name: Commit and push changes
     #  shell: pwsh

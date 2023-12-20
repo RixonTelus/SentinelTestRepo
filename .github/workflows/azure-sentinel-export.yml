@@ -2,11 +2,6 @@ name: Export Sentinel analytic rules from tenant
 
 on:
   workflow_dispatch: # Allows manual trigger
-
-defaults:
-  run:
-    shell: pwsh
-    working-directory: ./scripts
       
 jobs:
   export-rules:
@@ -25,8 +20,25 @@ jobs:
     
     - name: Run PS script
       shell: pwsh
-      run:  $rootDirectory//.github/workflows/extract-sentinel-rules.ps1
+      run:  ${{ github.workspace }}//.github/workflows/scripts/extract-sentinel-rules.ps1
     
-    #- name: Commit and push changes
-    #  shell: pwsh
-    #  run: |
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name 'RixonTelus'
+        git config --global user.email 'rixon.polvi@telus.com'
+        git add .
+
+        # Check for unstaged changes
+        git status
+
+        if (git diff-index --quiet HEAD --) {
+        Write-Host "No changes detected."
+        } else {
+        # Commit if there are changes
+        $currentDate = Get-Date -Format "yyyy-MM-dd HH:mm"
+        git commit -m "Extracted Rules - $currentDate"
+        
+        # Push the changes
+        git push origin HEAD:$(git branch --show-current)
+        Write-Host "Changes have been pushed."
+        }

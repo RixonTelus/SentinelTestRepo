@@ -21,7 +21,7 @@ jobs:
     - name: Run PS script
       shell: pwsh
       run: |
-        github/workflows/scripts/extract-sentinel-rules.ps1
+        & .github/workflows/scripts/extract-sentinel-rules.ps1
     
     - name: Commit and Push Changes
       run: |

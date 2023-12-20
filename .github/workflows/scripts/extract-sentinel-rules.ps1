@@ -9,7 +9,7 @@ Write-Host "test"
 $rules = Get-AzSentinelAlertRule -ResourceGroupName $resourceGroupName -WorkspaceName $workspaceName
 
 # Export the rules to a JSON file
-$rules | ConvertTo-Json | Out-File -FilePath "./current-sentinel-rules.json"
+$rules | ConvertTo-Json | Out-File -FilePath $ruleExportPath
 
 # Output the total number of rules extracted
 Write-Host "Total rules extracted: $($rules.Count)"

@@ -11,19 +11,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
-    #- name: Login
-    #  uses: azure/login@v1
-    #  with:
-    #    creds: ${{ secrets.AZURE_CREDENTIALS_SALESLA }}
-    - name: Run PS script
-      shell: pwsh
-      run: |
-        & .github/workflows/scripts/test.ps1
+    - name: Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_SALESLA }}
 
-    - name: Run PS script
+    - name: Install Az.SecurityInsights Module
       shell: pwsh
       run: |
-        & ${{ github.workspace }}//.github/workflows/scripts/extract-sentinel-rules.ps1
+        Install-Module -Name Az.SecurityInsights -Force -AllowClobber
+
+    - name: Run Export script
+      shell: pwsh
+      run: |
+        & .github/workflows/scripts/extract-sentinel-rules.ps1
     
     - name: Commit and Push Changes
       run: |

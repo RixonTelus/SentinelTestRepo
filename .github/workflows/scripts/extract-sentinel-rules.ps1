@@ -2,12 +2,11 @@
 $currentDate = Get-Date -Format "yyyy-MM-dd"
 $exportPath = 'Export-' + $currentDate + '.json'
 
-Import-Module AzSentinel
+#Import-Module AzSentinel
 
-Export-AzSentinel -workspace $workspaceName -Outputfolder ".\" -Kind Alert
+Export-AzSentinel -workspace $workspaceName -Outputfolder ".\" -Kind Alert -TemplatesKind "Scheduled,MicrosoftSecurityIncidentCreation"
 
-Get-ChildItem -Filter "Alert*" -File | 
-   Rename-Item -NewName $exportPath 
+Get-ChildItem -Filter "Alert*" -File | Rename-Item -NewName $exportPath 
 
 
 # Set the subscription context

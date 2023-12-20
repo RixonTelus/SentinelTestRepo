@@ -7,11 +7,16 @@ permissions:
   contents: write
   pull-requests: write
 
+#defaults:
+#  shell: pwsh
+
 env:
   SUBSCRIPTION_ID: 26613501-ed23-4f10-8aed-bd633914579d
   RESOURCE_GROUP_NAME: 'sales-rg'
   WORKSPACE_NAME: 'salesla'
   WORKSPACE_ID: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
+  GITHUB_CONTEXT: ${{ toJson(github) }} 
+  WORKFLOW_ACTOR: ${{ toJson(github) }}.actor
   #RULE_EXPORT_PATH: '.\Newexport.json'
 
 jobs:
@@ -19,6 +24,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Show GitHub context
+      shell: pwsh
+      run: |
+        echo "$GITHUB_CONTEXT"
+        echo $GITHUB_CONTEXT.actor
+        echo $WORKFLOW_ACTOR
+
     - name: Checkout repository
       uses: actions/checkout@v3
     
@@ -47,22 +59,6 @@ jobs:
         & .github/workflows/scripts/extract-sentinel-rules.ps1
     
     - name: Commit and Push Changes
+      shell: pwsh
       run: |
-        git config --global user.name 'RixonTelus'
-        git config --global user.email 'rixon.polvi@telus.com'
-        git add .
-
-        # Check for unstaged changes
-        git status
-
-        if (git diff-index --quiet HEAD --) {
-        Write-Host "No changes detected."
-        } else {
-        # Commit if there are changes
-        $currentDate = Get-Date -Format "yyyy-MM-dd HH:mm"
-        git commit -m "Extracted Rules - $currentDate"
-        
-        # Push the changes
-        git push origin HEAD:$(git branch --show-current)
-        Write-Host "Changes have been pushed."
-        }
+        & .github/workflows/scripts/commit-and-push.ps1

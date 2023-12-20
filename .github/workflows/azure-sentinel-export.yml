@@ -17,7 +17,6 @@ env:
   WORKSPACE_ID: 1382c2fb-d2c0-4e6d-979b-e1e32d96190e
   GITHUB_CONTEXT: ${{ toJson(github) }} 
   WORKFLOW_ACTOR: ${{ toJson(github) }}.actor
-  #RULE_EXPORT_PATH: '.\Newexport.json'
 
 jobs:
   export-rules:

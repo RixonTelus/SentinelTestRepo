@@ -1,5 +1,5 @@
 # Variables
-$currentDate = Get-Date -Format "yyyy-MM-dd"
+$currentDate = Get-Date -Format "yyyy-MM-dd-HH-mm"
 $exportPath = 'Export-' + $currentDate + '.json'
 
 #Import-Module AzSentinel

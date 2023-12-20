@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
     
-    - name: Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS_SALESLA }}
+    #- name: Login
+    #  uses: azure/login@v1
+    #  with:
+    #    creds: ${{ secrets.AZURE_CREDENTIALS_SALESLA }}
     
     - name: Run PS script
       shell: pwsh

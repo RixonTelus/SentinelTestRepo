@@ -31,6 +31,7 @@ jobs:
     - name: Run Export script
       shell: pwsh
       run: |
+        $subscriptionId = $env:SUBSCRIPTION_ID
         $resourceGroupName = $env:RESOURCE_GROUP_NAME
         $workspaceName = $env:WORKSPACE_NAME
         $ruleExportPath = $env:RULE_EXPORT_PATH

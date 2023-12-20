@@ -6,7 +6,7 @@ Write-Host "test"
 #Set-AzContext -SubscriptionId $subscriptionId
 
 # Get the list of Azure Sentinel analytic rules
-$rules = Get-AzSentinelAlertRule -ResourceGroupName $resourceGroupName -WorkspaceName $workspaceName
+$rules = Get-AzSentinelAlertRule -ResourceGroupName $resourceGroupName -WorkspaceName $workspaceName -SubscriptionId $subscriptionId
 
 # Export the rules to a JSON file
 $rules | ConvertTo-Json | Out-File -FilePath $ruleExportPath

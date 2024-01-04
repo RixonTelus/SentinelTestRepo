@@ -26,8 +26,9 @@ jobs:
     - name: Show GitHub context
       shell: pwsh
       run: |
-        echo "$GITHUB_CONTEXT"
+        #echo "$GITHUB_CONTEXT"
         echo $GITHUB_CONTEXT.actor
+        echo $GITHUB_CONTEXT.triggering_actor
 
     - name: Checkout repository
       uses: actions/checkout@v3
